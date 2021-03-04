@@ -2,9 +2,12 @@ import { getDirection } from "./input.js";
 
 export const snakeSpeed = 5;
 
-const snakeBody = [{ x: 10, y: 11 }];
+const snakeBody = [{ x: 11, y: 11 }];
+let newSegment = 0;
 
 export function update() {
+  updateSnakeBody();
+
   const inputDirection = getDirection();
 
   for (let i = snakeBody.length - 2; i >= 0; i--) {
@@ -24,4 +27,35 @@ export function draw(gameBoard) {
 
     gameBoard.appendChild(snakeElement);
   });
+}
+
+export function expandSnake(amount) {
+  newSegment += amount;
+}
+
+export function onSnake(position, { ignoreHead = false } = {}) {
+  return snakeBody.some((segment, i) => {
+    if (ignoreHead && i === 0) return false;
+    return positions(segment, position);
+  });
+}
+
+export function snakeHead() {
+  return snakeBody[0];
+}
+
+export function snakeIntersections() {
+  return onSnake(snakeBody[0], { ignoreHead: true });
+}
+
+function positions(pos1, pos2) {
+  return pos1.x === pos2.x && pos1.y === pos2.y;
+}
+
+function updateSnakeBody() {
+  for (let i = 0; i < newSegment; i++) {
+    snakeBody.push({ ...snakeBody[snakeBody.length - 1] });
+  }
+
+  newSegment = 0;
 }

@@ -1,6 +1,11 @@
 let inputDirection = { x: 0, y: 0 };
 let lastInputDirection = { x: 0, y: 0 };
 
+let arrUp = document.getElementById("arrow-up");
+let arrLeft = document.getElementById("arrow-left");
+let arrDown = document.getElementById("arrow-down");
+let arrRight = document.getElementById("arrow-right");
+
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "ArrowUp":
@@ -20,6 +25,23 @@ window.addEventListener("keydown", (e) => {
       inputDirection = { x: -1, y: 0 };
       break;
   }
+});
+
+arrUp.addEventListener("click", () => {
+  if (lastInputDirection.y !== 0) return;
+  inputDirection = { x: 0, y: -1 };
+});
+arrLeft.addEventListener("click", () => {
+  if (lastInputDirection.x !== 0) return;
+  inputDirection = { x: -1, y: 0 };
+});
+arrDown.addEventListener("click", () => {
+  if (lastInputDirection.y !== 0) return;
+  inputDirection = { x: 0, y: 1 };
+});
+arrRight.addEventListener("click", () => {
+  if (lastInputDirection.x !== 0) return;
+  inputDirection = { x: 1, y: 0 };
 });
 
 export function getDirection() {

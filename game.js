@@ -25,7 +25,6 @@ function main(currentTime) {
 
   if (secondsSinceLastRendered < 1 / snakeSpeed) return;
 
-  console.log("tested");
   lastRenderTime = currentTime;
 
   update();
